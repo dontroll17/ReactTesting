@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 
-function DisplayText() {
+interface Props {
+    getFullName: (username: string) => Promise<string>
+}
+
+function DisplayText({ getFullName }: Props) {
     const [ txt, setTxt ] = useState('');
     const [ msg, setMsg ] = useState('');
     
@@ -8,10 +12,10 @@ function DisplayText() {
         setTxt(e.target.value);
     }
 
-    const onClickShowMsg = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const onClickShowMsg = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
 
-        setMsg(`React testing, ${txt}`);
+        setMsg(`React testing, ${await getFullName(txt)}`);
     }
 
 
