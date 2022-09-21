@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import UserTodo from './UserTodo';
 
 interface Props {
     getFullName: (username: string) => Promise<string>
@@ -7,6 +8,7 @@ interface Props {
 function DisplayText({ getFullName }: Props) {
     const [ txt, setTxt ] = useState('');
     const [ msg, setMsg ] = useState('');
+    const [ todo, setTodo ] = useState<ReturnType<typeof UserTodo>>();
     
     const onChangeTxt = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTxt(e.target.value);
@@ -16,8 +18,8 @@ function DisplayText({ getFullName }: Props) {
         e.preventDefault();
 
         setMsg(`React testing, ${await getFullName(txt)}`);
+        setTodo(<UserTodo username={txt} />);
     }
-
 
     return (
         <form>
@@ -39,6 +41,7 @@ function DisplayText({ getFullName }: Props) {
             <div>
                 <label data-testid='final-msg'>{msg}</label>
             </div>
+            { todo }
         </form>
     )
 }

@@ -5,6 +5,10 @@ import "@testing-library/jest-dom/";
 
 const testUser = 'testUser';
 
+jest.mock('../__mocks__/UserTodo');
+global.fetch = jest.fn();
+
+
 afterEach(cleanup);
 
 describe('Test DisplayText', () => {
